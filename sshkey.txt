@@ -1,0 +1,8 @@
+git bash
+查询 ~/.ssh  No such file or directory
+创建
+ssh-keygen -t rsa -C "ylc8848@sina.com"
+放在c://user//hp//id_rsa.pub 用文本打开，复制粘贴到github网站的settings ---SSH ---new SSH KEY中。
+
+ ssh -T git@github.com 确认是否真正创建ok
+注意是git@github.com，不是你的邮箱。
