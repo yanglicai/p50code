@@ -5,6 +5,8 @@
   * @version V1.0.0
   * @date    19-12-2019
   * @brief     
+  * @modify 
+  V1.1 
 gui：font,icon,bmp,function
 依赖文件
 oled.c 
@@ -55,8 +57,8 @@ app_task.c 中交互处理
 char *buildTime = __TIME__;
 char *buildDate = __DATE__;
 
-char *strVersion = "P50 V2.0A";
-char *NewstrVersion = "P50 V2.0B";
+char *strVersion = "P50 V2.0A2";
+char *NewstrVersion = "P50 V2.0B2";
 
 char  time[5];
 
