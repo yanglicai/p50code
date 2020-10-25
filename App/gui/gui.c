@@ -5,30 +5,30 @@
   * @version V1.0.0
   * @date    19-12-2019
   * @brief     
-gui£ºfont,icon,bmp,function
-ÒÀÀµÎÄ¼ş
+guiï¼šfont,icon,bmp,function
+ä¾èµ–æ–‡ä»¶
 oled.c 
-fonts.c ¶ÔÓ¦×ÖÌå Í¼±êÔÚÀïÃæ¶¨Òå
+fonts.c å¯¹åº”å­—ä½“ å›¾æ ‡åœ¨é‡Œé¢å®šä¹‰
 
-±»Ë­µ÷ÓÃ£º
-app_task.c ÖĞ½»»¥´¦Àí
+è¢«è°è°ƒç”¨ï¼š
+app_task.c ä¸­äº¤äº’å¤„ç†
 
-Êı¾İ²ã£º
-2.ÉèÖÃµØÖ·²Ù×÷·¶Î§£»
+æ•°æ®å±‚ï¼š
+1.è®¾ç½®åœ°å€æ“ä½œèŒƒå›´ï¼›
 
-Ó¦ÓÃ²ã£º
-1.ÇåÆÁ£»
-2.Ğ¾Æ¬³õÊ¼»¯£»
+åº”ç”¨å±‚ï¼š
+1.æ¸…å±ï¼›
+2.èŠ¯ç‰‡åˆå§‹åŒ–ï¼›
 
-ÊµÏÖµÄ¹¦ÄÜ£º
-1. ÏÔÊ¾µÄ¿ª ¹Ø
-2. ÏÔÊ¾µÄÇåÆÁ
-3. ÏÔÊ¾¸÷ÀàµÄÍ¼±ê£¬ÏÔÊ¾Ö÷ui£¬ÏÔÊ¾³äµçÍ¼£»
+å®ç°çš„åŠŸèƒ½ï¼š
+1. æ˜¾ç¤ºçš„å¼€ å…³
+2. æ˜¾ç¤ºçš„æ¸…å±
+3. æ˜¾ç¤ºå„ç±»çš„å›¾æ ‡ï¼Œæ˜¾ç¤ºä¸»uiï¼Œæ˜¾ç¤ºå……ç”µå›¾ï¼›
 
-ÏÔÊ¾·ÖÀà£º
-1.²»Í¬×ÖÌå£»
-2.´øĞ¡Êıµã£¬²»´øĞ¡ÊıµãµÄ£»
-3.µ¥´¿Í¼±ê£¬±ÈÈçSNOWWOLFÕâ¸ölogoÍ¼±ê£»
+æ˜¾ç¤ºåˆ†ç±»ï¼š
+1.ä¸åŒå­—ä½“ï¼›
+2.å¸¦å°æ•°ç‚¹ï¼Œä¸å¸¦å°æ•°ç‚¹çš„ï¼›
+3.å•çº¯å›¾æ ‡ï¼Œæ¯”å¦‚SNOWWOLFè¿™ä¸ªlogoå›¾æ ‡ï¼›
 	
 */
 	
@@ -37,13 +37,14 @@ app_task.c ÖĞ½»»¥´¦Àí
 /* Define to prevent recursive inclusion -------------------------------------*/
 
 /* Includes ------------------------------------------------------------------*/
+#include "gui.h"
 
 #include "myMath.h"
 
 #include "Fonts.h"
 #include "app_task.h"
 #include "delay.h"
-#include "gui.h"
+
 #include "uiTab.h"
 #include "oled.h"
 
@@ -59,8 +60,8 @@ char *NewstrVersion = "P50 V2.0B";
 
 char  time[5];
 
-#define oled_CMD	0  //Ğ´ÃüÁî
-#define oled_DATA	1  //Ğ´Êı¾İ  
+#define oled_CMD	0  //å†™å‘½ä»¤
+#define oled_DATA	1  //å†™æ•°æ®  
 byteBit show;
 
 extern void oled_writeCmd(unsigned char Data);
@@ -74,7 +75,7 @@ extern void display_32highData(uint8_t x1,uint8_t x2,uint8_t y1,uint8_t y2,
 	uint8_t fh,uint8_t fw,uint8_t fadr,const uint8_t *Pr,uint16_t Color,uint16_t bColor);
 
 /**
-  * @brief  oled ÏÔÊ¾±êÖ¾µÄÉèÖÃ
+  * @brief  oled æ˜¾ç¤ºæ ‡å¿—çš„è®¾ç½®
   * @param  None
   * @retval None
 **/ 
@@ -90,7 +91,7 @@ void oled_setAllFlag(void)
 
 
 /**
-  * @brief  oledÇåÆÁ
+  * @brief  oledæ¸…å±
   * @param  None  96 * 16
   * @retval None
 **/  
@@ -107,7 +108,7 @@ void oled_Show_Clear(uint8_t type)
 
 
 /**
-  * @brief  ÏÔÊ¾µç³ØµçÑ¹
+  * @brief  æ˜¾ç¤ºç”µæ± ç”µå‹
   * @param  puff
   * @retval None
 **/ 
@@ -126,8 +127,8 @@ static void display_batV(uint16_t batV)
 		num2=tem/10;
 		num3=tem%10; 	
 	 
-		display_16HighData(125, 129, BATV_Y,BATV_Y2,9,5,  (num1+1),font5x16tabe,0xFFFF,0x0000);//ÏÔÊ¾µç×èµÄ×èÖµ.
-		display_16HighData(130, 132, BATV_Y,BATV_Y2,9,3,  1,       font3x16tabe,0xFFFF,0x0000);  //ÏÔÊ¾Ğ¡Êıµã	
+		display_16HighData(125, 129, BATV_Y,BATV_Y2,9,5,  (num1+1),font5x16tabe,0xFFFF,0x0000);//æ˜¾ç¤ºç”µé˜»çš„é˜»å€¼.
+		display_16HighData(130, 132, BATV_Y,BATV_Y2,9,3,  1,       font3x16tabe,0xFFFF,0x0000);  //æ˜¾ç¤ºå°æ•°ç‚¹	
 		display_16HighData(133, 137, BATV_Y,BATV_Y2,9,5,  (num2+1),font5x16tabe,0xFFFF,0x0000);	
 		display_16HighData(141, 145, BATV_Y,BATV_Y2,9,5,  (num3+1),font5x16tabe,0xFFFF,0x0000);	
 	
@@ -162,8 +163,8 @@ uint8_t  oled_Show_BatV(uint16_t batVData)
 }
 
 /**
-  * @brief  ÏÔÊ¾ÎüÑÌ¿ÚÊı
-  * @param  puff ×óÉÏ½Ç
+  * @brief  æ˜¾ç¤ºå¸çƒŸå£æ•°
+  * @param  puff å·¦ä¸Šè§’
   * @retval None
 **/ 
 
@@ -223,7 +224,7 @@ static void display_puffTime(uint8_t time)
 		num2=tem;		
 
 		display_16HighData(128,132,PUFFTIME_Y,PUFFTIME_Y + 8,9,5,(num1+1),font5x16tabe,0xFFFF,0x0000);
-		display_16HighData(135,137,PUFFTIME_Y,PUFFTIME_Y + 8,9,3,1,font3x16tabe,0xFFFF,0x0000);  //ÏÔÊ¾Ğ¡Êıµã    
+		display_16HighData(135,137,PUFFTIME_Y,PUFFTIME_Y + 8,9,3,1,font3x16tabe,0xFFFF,0x0000);  //æ˜¾ç¤ºå°æ•°ç‚¹    
 		display_16HighData(140,144,PUFFTIME_Y,PUFFTIME_Y + 8,9,5,(num2+1),font5x16tabe,0xFFFF,0x0000);  
 	}
 	else
@@ -237,7 +238,7 @@ static void display_puffTime(uint8_t time)
 
 
 /**
-  * @brief  ÏÔÊ¾ÎüÑÌÊ±¼ä
+  * @brief  æ˜¾ç¤ºå¸çƒŸæ—¶é—´
   * @param  time: 100ms    
   * @retval None    
 **/ 
@@ -261,13 +262,13 @@ void oled_Show_Time(uint8_t time)
 }
 
 /**
-  * @brief  ÏÔÊ¾ATO×èÖµ
+  * @brief  æ˜¾ç¤ºATOé˜»å€¼
   * @param  time: 100ms    
   * @retval None    
 **/ 
 /*********************************************
-º¯ÊıÃû³Æ:oled_Show_Resistance
-º¯ÊıËµÃ÷:ÏÔÊ¾µç×è×èÖµº¯Êı 
+å‡½æ•°åç§°:oled_Show_Resistance
+å‡½æ•°è¯´æ˜:æ˜¾ç¤ºç”µé˜»é˜»å€¼å‡½æ•° 
 *********************************************/
 void oled_Show_CheckResistance(unsigned short r)
 {		
@@ -319,7 +320,7 @@ void oled_showMessaggeAtoRes(uint16_t res)
   oled_Show_CheckResistance(show_res);		
 }
 
-//Ö÷½çÃæÏÔÊ¾´¦Àí
+//ä¸»ç•Œé¢æ˜¾ç¤ºå¤„ç†
 void oled_Show_Resistance(unsigned short r)
 {		
 	 if (r > 999) return;
@@ -337,8 +338,8 @@ void oled_Show_Resistance(unsigned short r)
 			num2=tem/10;
 			num3=tem%10; 	
 		 
-			display_16HighData(2, 6, ATO_R_Y,ATO_R_Y2,9,5,(num1+1),font5x16tabe,0xFFFF,0x0000);//ÏÔÊ¾µç×èµÄ×èÖµ.
-			display_16HighData(7, 9, ATO_R_Y,ATO_R_Y2,9,3,1,font3x16tabe,0xFFFF,0x0000);  //ÏÔÊ¾Ğ¡Êıµã	
+			display_16HighData(2, 6, ATO_R_Y,ATO_R_Y2,9,5,(num1+1),font5x16tabe,0xFFFF,0x0000);//æ˜¾ç¤ºç”µé˜»çš„é˜»å€¼.
+			display_16HighData(7, 9, ATO_R_Y,ATO_R_Y2,9,3,1,font3x16tabe,0xFFFF,0x0000);  //æ˜¾ç¤ºå°æ•°ç‚¹	
 			display_16HighData(10,14,ATO_R_Y,ATO_R_Y2,9,5,(num2+1),font5x16tabe,0xFFFF,0x0000);	
 			display_16HighData(18,22,ATO_R_Y,ATO_R_Y2,9,5,(num3+1),font5x16tabe,0xFFFF,0x0000);	
 		 
@@ -368,7 +369,7 @@ void oled_Show_AtoRes(uint16_t res)
 
 
 /**
-  * @brief  ÏÔÊ¾¹¦ÂÊ
+  * @brief  æ˜¾ç¤ºåŠŸç‡
   * @param  power 0~40    
   * @retval None
 **/ 
@@ -395,7 +396,7 @@ static void display_power(unsigned short Pra)
 	num3=(tem2/10);	
   num4=(tem2%10);			
 	
-  //ÏÔÊ¾100WÒÔÏÂ´øĞ¡Êıµã¡£
+  //æ˜¾ç¤º100Wä»¥ä¸‹å¸¦å°æ•°ç‚¹ã€‚
 	startX2 = startX + len;	
 	display_32highData(startX,startX2,startY,startY2,32,14,num2+1,num_14X32,colourval,0x0000);	
 	startX = startX2 + 5;	
@@ -428,18 +429,18 @@ void oled_Show_Power(uint16_t power)
 }
 
 /**
-  * @brief  ÏÔÊ¾Í¨µÀ
+  * @brief  æ˜¾ç¤ºé€šé“
   * @param  power 1~3   
   * @retval None
 **/ 
 
 
 /**
-  * @brief  ÏÔÊ¾µç³ØµçÁ¿  Ö÷½çÃæµÄÏÔÊ¾
+  * @brief  æ˜¾ç¤ºç”µæ± ç”µé‡  ä¸»ç•Œé¢çš„æ˜¾ç¤º
   * @param  
   * @retval None
 **/ 
-#define MAX_BATTERY_LEN     26 //Ö÷½çÃæµç³ØÌõ×î´ó³¤¶È
+#define MAX_BATTERY_LEN     26 //ä¸»ç•Œé¢ç”µæ± æ¡æœ€å¤§é•¿åº¦
 #define HOME_BATTER_START_X (66 + 2) //2 66
 
 void oled_showHomePageBattery(uint8_t level)
@@ -488,9 +489,9 @@ void oled_showHomePageBattery(uint8_t level)
 
 }
 
-//==========³äµçµç³Ø ´óµç³Ø ºÍÖ÷½çÃæUIÎŞ¹Ø======================================
+//==========å……ç”µç”µæ±  å¤§ç”µæ±  å’Œä¸»ç•Œé¢UIæ— å…³======================================
 /**
-  * @brief  ÏÔÊ¾³äµçµç³ØµçÁ¿
+  * @brief  æ˜¾ç¤ºå……ç”µç”µæ± ç”µé‡
   * @param  level 0~32
   * @retval None
 **/ 
@@ -504,7 +505,7 @@ extern const unsigned char gImage_BAT_R[576];
 #define FLASH_CHARGE_FLASH_TECH_START_X FLASH_CHARGE_BOX_START_X - 8
 
 
-void display_chargeBatBox(void)//³äµçÄ£Ê½µç³Ø¿ò¼ÜÍ¼±ê
+void display_chargeBatBox(void)//å……ç”µæ¨¡å¼ç”µæ± æ¡†æ¶å›¾æ ‡
 {
 	mYdraw_picture(FLASH_CHARGE_BOX_START_X + 1,20,6,32,gImage_BAT_L);
 	mYdraw_picture(FLASH_CHARGE_BOX_START_X + 76,20,9,32,gImage_BAT_R);
@@ -513,7 +514,7 @@ void display_chargeBatBox(void)//³äµçÄ£Ê½µç³Ø¿ò¼ÜÍ¼±ê
 }
 
 
-#define MAX_CHARGE_LEN 72    //×î´óµç³ØÌõ³¤¶È
+#define MAX_CHARGE_LEN 72    //æœ€å¤§ç”µæ± æ¡é•¿åº¦
 
 void oled_showChargeBattery(uint8_t level)
 {
@@ -570,11 +571,11 @@ void oled_showChargeBattery(uint8_t level)
 	past_level = level;
 }
 
-//==========logo ±£Áô¶¯Ì¬ÏÔÊ¾ºÍ³£¹æÏÔÊ¾Á½ÖÖ·½Ê½======================================
+//==========logo ä¿ç•™åŠ¨æ€æ˜¾ç¤ºå’Œå¸¸è§„æ˜¾ç¤ºä¸¤ç§æ–¹å¼======================================
 
 
 /**
-  * @brief  oled_Show_BackUI ÏÔÊ¾Ö÷½çÃæµÄ±³¾°ÒÔ¼°¹«¹²ÔªËØ
+  * @brief  oled_Show_BackUI æ˜¾ç¤ºä¸»ç•Œé¢çš„èƒŒæ™¯ä»¥åŠå…¬å…±å…ƒç´ 
   * @param  None   
   * @retval None
 **/ 
@@ -649,7 +650,7 @@ void oled_Show_NewVersion(uint8_t x,uint8_t y)
 
 
 /**
-  * @brief  ÏÔÊ¾logo1(SNOWWOLF)
+  * @brief  æ˜¾ç¤ºlogo1(SNOWWOLF)
   * @param  None   
   * @retval None
 **/ 
@@ -681,7 +682,7 @@ void oled_Show_Snowwolf(void)
 }
 
 /**
-  * @brief  ÏÔÊ¾logo2(BYE)
+  * @brief  æ˜¾ç¤ºlogo2(BYE)
   * @param  None   
   * @retval None
 **/ 
@@ -705,9 +706,9 @@ void oled_Show_SysOff(void)
 	}
 }
 
-//ÒÔÏÂ²¿·ÖÎª±¨¾¯£¬¹²Í¬µãÊÇ±³¾°Í¼
+//ä»¥ä¸‹éƒ¨åˆ†ä¸ºæŠ¥è­¦ï¼Œå…±åŒç‚¹æ˜¯èƒŒæ™¯å›¾
 /**
-  * @brief  ÏÔÊ¾logo3(OVER HEAT)
+  * @brief  æ˜¾ç¤ºlogo3(OVER HEAT)
   * @param  None   
   * @retval None
 **/ 
@@ -720,7 +721,7 @@ void oled_Show_OverHeat(void)
 
 
 /**
-  * @brief  ÏÔÊ¾logo4(CHECK POD)
+  * @brief  æ˜¾ç¤ºlogo4(CHECK POD)
   * @param  None   
   * @retval None (160 - 132) / 2
 **/ 
@@ -734,7 +735,7 @@ void oled_Show_CheckPod(void)
 
 
 /**
-  * @brief  ÏÔÊ¾logo5(OVER FIRE)
+  * @brief  æ˜¾ç¤ºlogo5(OVER FIRE)
   * @param  None   
   * @retval None
 **/ 
@@ -746,7 +747,7 @@ void oled_Show_OverTime(void)
 
 
 /**
-  * @brief  ÏÔÊ¾logo6(BATTERY LOW)
+  * @brief  æ˜¾ç¤ºlogo6(BATTERY LOW)
   * @param  None   
   * @retval None
 **/ 
@@ -758,7 +759,7 @@ void oled_Show_BatteryLow(void)
 
 
 /**
-  * @brief  ÏÔÊ¾logo7(SHORT)
+  * @brief  æ˜¾ç¤ºlogo7(SHORT)
   * @param  None   
   * @retval None
 **/ 
@@ -771,7 +772,7 @@ void oled_Show_Short(void)
 
 
 /**
-  * @brief  ÏÔÊ¾logo8(LOCKED)
+  * @brief  æ˜¾ç¤ºlogo8(LOCKED)
   * @param  None   
   * @retval None
 **/ 
@@ -784,7 +785,7 @@ void oled_Show_Locked(void)
 
 
 /**
-  * @brief  ÏÔÊ¾logo9(UNLOCKED)
+  * @brief  æ˜¾ç¤ºlogo9(UNLOCKED)
   * @param  None   
   * @retval None
 **/ 
@@ -797,7 +798,7 @@ void oled_Show_Unlock(void)
 }
 
 /**
-  * @brief  ÏÔÊ¾logo10(FACTORY)
+  * @brief  æ˜¾ç¤ºlogo10(FACTORY)
   * @param  None   
   * @retval None
 **/ 
@@ -808,7 +809,7 @@ void oled_Show_RestoreDefault(void)
 	
 	Display_setFgColor(COLOR_TEAL);
 	
-	if (flagNewLogic==0)  // ¶ÁÈ¡Èí¼ş°æ±¾
+	if (flagNewLogic==0)  // è¯»å–è½¯ä»¶ç‰ˆæœ¬
 	{
 		oled_Show_Version(35,52);
 	}
@@ -821,7 +822,7 @@ void oled_Show_RestoreDefault(void)
 }  
 
 /**
-  * @brief  ÏÔÊ¾logo11(MAX POWER)
+  * @brief  æ˜¾ç¤ºlogo11(MAX POWER)
   * @param  None   
   * @retval None
 **/ 
@@ -831,17 +832,17 @@ void oled_Show_PowerIsMax(void)
 	menu_displayString("MAX POWER",40,55,1);
 } 
 
-//=======================¶ÔÍâµÄµ÷ÓÃ==========================
+//=======================å¯¹å¤–çš„è°ƒç”¨==========================
 
 
 /**
-  * @brief  oled ²ÎÊıÅäÖÃ³õÊ¼»¯
+  * @brief  oled å‚æ•°é…ç½®åˆå§‹åŒ–
   * @param  None 
   * @retval None
-0x36 ¶ÔÓ¦µÄ²ÎÊı
-//0xA0ºÍAÊÇÊúÏò¾µÏñ ºáÏòÏÔÊ¾   		
-//0xE0ºÍAÒ»Ñù µ×²¿ÏÔÊ¾ ºáÏòÏÔÊ¾ ×ÖºáÏò¾µÏñ  
-//0xC0ÊúÏòÏÔÊ¾
+0x36 å¯¹åº”çš„å‚æ•°
+//0xA0å’ŒAæ˜¯ç«–å‘é•œåƒ æ¨ªå‘æ˜¾ç¤º   		
+//0xE0å’ŒAä¸€æ · åº•éƒ¨æ˜¾ç¤º æ¨ªå‘æ˜¾ç¤º å­—æ¨ªå‘é•œåƒ  
+//0xC0ç«–å‘æ˜¾ç¤º
 
 **/
 void oled_configInit(uint8_t modeType)
@@ -945,7 +946,7 @@ void oled_configInit(uint8_t modeType)
 
 
 /**
-  * @brief  oled ³õÊ¼»¯
+  * @brief  oled åˆå§‹åŒ–
   * @param  None 
   * @retval None
 **/
@@ -965,7 +966,7 @@ void oled_Init(const uint8_t displayType)
 #if (OLED_MIRROR_IS_EN==1)
     oled_configInit(0xA8); 
 #else		
-		oled_configInit(0x68); //Õı³£ÏÔÊ¾ 0x68 µ¹Ó°ÏÔÊ¾ 0xA8
+		oled_configInit(0x68); //æ­£å¸¸æ˜¾ç¤º 0x68 å€’å½±æ˜¾ç¤º 0xA8
 #endif
 	}
 	
@@ -977,7 +978,7 @@ void oled_Init(const uint8_t displayType)
 	}	
 	
 	
-	Display_setDrawMode(0); //Õı³£ÏÔÊ¾
+	Display_setDrawMode(0); //æ­£å¸¸æ˜¾ç¤º
 }
 
 
